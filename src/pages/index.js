@@ -9,30 +9,18 @@ export default class Index extends Component {
     }
   }
 
-  login() {
-    this.setState({ render: 'loading', render: 'loading' })
-    setTimeout(() => {
-      this.setState({ render: 'logged in' })
-      setTimeout(() => {
-        const { push } = this.props.history
-        push('/login')
-      }, 500)
-    }, 2000)
+  componentDidMount() {
+    const status = sessionStorage.getItem('status'),
+          { push } = this.props.history
+    if (!status) {
+      push('/login')
+    }
   }
 
   render() {
     return (
       <div>
-        Index page
-        <Link to="/about">to about page</Link>
-        <button onClick={this.login.bind(this)}>Login</button>
-      {(() => {
-        if (this.state.render === 'loading') {
-          return <p>Loading...</p>
-        } else if (this.state.render === 'logged in') {
-          return <p>Succeed</p>
-        }
-      })()}
+        <h1>Home page</h1>
       </div>
     )
   }
